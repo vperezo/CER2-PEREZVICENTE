@@ -1,4 +1,4 @@
-# CER2 - Catálogo Patrimonio Vivo
+# CER2-PEREZVICENTE - Catálogo Patrimonio Vivo
 
 ## Instalación y ejecución
 
