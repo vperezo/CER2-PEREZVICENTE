@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% block contenido %}
+<section class="mb-5">
+    <h1 class="display-5">Fundación Patrimonio Vivo</h1>
+    <p class="lead">Organización sin fines de lucro dedicada a identificar, documentar y difundir el patrimonio cultural e histórico de Chile. Explora nuestro catálogo digital de museos, cines, monumentos y murales, revisa sus características y filtra la información según tu interés.</p>
+</section>
+
+<section>
+    <h2 class="mb-4">Lugares destacados</h2>
+    <div class="row g-4">
+        {% for lugar in destacados %}
+        <div class="col-md-4">
+            <div class="card h-100">
+                {% if lugar.imagen %}
+                <div class="ratio ratio-4x3">
+                    <img src="{{ lugar.imagen }}" class="card-img-top object-fit-cover" alt="{{ lugar.nombre }}">
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <span class="badge">{{ lugar.categoria.nombre }}</span>
+                    <h3 class="h5 card-title mt-2">{{ lugar.nombre }}</h3>
+                    <p class="card-text">{{ lugar.ubicacion }}</p>
+                    <a href="{% url 'detalle' lugar.id %}" class="btn btn-primary">Ver detalle</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Aún no hay lugares destacados.</p>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-5">
+        <a href="{% url 'catalogo' %}" class="btn btn-primary btn-lg">Explorar catálogo completo</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Patrimonio Vivo{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/estilos.css' %}">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Patrimonio Vivo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#menu" aria-controls="menu" aria-expanded="false"
+                    aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                    <a class="nav-link" href="{% url 'catalogo' %}">Catálogo</a>
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'gestion' %}">Gestión</a>
+                        <form method="post" action="{% url 'logout' %}" class="d-flex">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light btn-sm">Cerrar sesión ({{ user.username }})</button>
+                        </form>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4 flex-grow-1">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer class="text-center py-4 mt-4">
+        <p class="mb-0">Fundación Patrimonio Vivo · Catálogo patrimonial de Chile</p>
+    </footer>
+
+    <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
